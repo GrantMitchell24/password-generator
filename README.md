@@ -8,3 +8,4 @@ Author: Grant Mitchell
 
 License: See Repo
 
+![Preview image](./assets/password-generator-screenshot.png)
