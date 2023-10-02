@@ -1,12 +1,3 @@
-// 1. Ask the user all questions
-// 2. Global variables for all the user params for the password
-// 3. We have to get together a list of all allowed characters in the final password
-// 4. Combine all teh allowed possible chatacters into a single array (array merging)
-  // example array merge: var finalArrary = [...specialCharacters, ...lowerCaseLetters]
-// 5. Generate one random character x number of times (for loop) add to string value (var finalPassword)
-  // a. Generate a random index vlaue for each of these characters
-  // b. Random idx value = 0 to array length - 1
-
 var generateBtn = document.querySelector("#generate");
 
 var numberOfCharacters;
@@ -18,17 +9,17 @@ var useLowerCase;
 var finalPassword = "";
 
 var SpecialCharacters = ["$", "#", "@", "?"];
-var numbers = []
-var lowerCaseLetters = []
-var useUpperCase = []
+var numbers = '0123456789'.split('')
+var lowerCaseLetters = 'qwertyuiopasdfghjklzxcvbnm'.split('')
+var upperCaseLetters = 'QWERTYUIOPASDFGHJKLZXCVBNM'.split('')
 var allFinalCharacters = []
 
-
+// var length;
 function askQuestions() {
 
 }
 
-function getAllAllowedCharacters() { 
+function getAllAllowedCharacters() {
 
   return "grant123"
 }
@@ -37,26 +28,68 @@ function getAllAllowedCharacters() {
 // Function to generate a random password: 
 // Instruction 1
 function generatePassword() {
-    // Prompt for password length
+  // Prompt for password length
   var length = parseInt(prompt("Enter Password Length (at least 8 characters"));
 
-// Validate Length
-  if (isNaN(length) || length <8 || length > 128) {
-    alert("Please enter a valid password length."); 
+  // Validate Length
+  if (isNaN(length) || length < 8 || length > 128) {
+    alert("Please enter a valid password length.");
     return;
   }
 
 
-  getSpecialCharacters();
-
+  // getSpecialCharacters();
+  return getCharacters(length)
 
 }
 // Prompt for character types
 // Confirms return boolean value
-function getSpecialCharacters() {
-useSpecialCharacters= confirm ("Do you want to use special characters?")
-}
+// function getSpecialCharacters() {
+// useSpecialCharacters= confirm ("Do you want to use special characters?")
+// }
+function getCharacters(lengthEl) {
+  useSpecialCharacters = confirm("Do you want to use special characters?")
+  useNumbers = confirm("Do you want to use number characters?")
+  useUpperCase = confirm("Do you want to use uppercase characters?")
+  useLowerCase = confirm("Do you want to use lowercase characters?")
 
+  while (!useSpecialCharacters && !useNumbers && !useUpperCase && !useLowerCase) {
+    alert('You need to pick at least 1 type of characters')
+    useSpecialCharacters = confirm("Do you want to use special characters?")
+    useNumbers = confirm("Do you want to use number characters?")
+    useUpperCase = confirm("Do you want to use uppercase characters?")
+    useLowerCase = confirm("Do you want to use lowercase characters?")
+  }
+
+  if (useSpecialCharacters) {
+    //push special chars to allFinalCharacter array
+    allFinalCharacters.push(...SpecialCharacters)
+  }
+  if (useNumbers) {
+    //push number chars to allFinalCharacter array
+    allFinalCharacters.push(...numbers)
+
+  }
+  if (useUpperCase) {
+    //push upper chars to allFinalCharacter array
+    allFinalCharacters.push(...lowerCaseLetters)
+
+  }
+  if (useLowerCase) {
+    //push lower chars to allFinalCharacter array
+    allFinalCharacters.push(...upperCaseLetters)
+
+  }
+  console.log(allFinalCharacters);
+  for (var index = 0; index < lengthEl; index++) {
+    var randomIndex = Math.floor(Math.random() * allFinalCharacters.length)
+    var randomCharacter = allFinalCharacters[randomIndex]
+    finalPassword += randomCharacter
+    console.log(randomIndex, randomCharacter);
+
+  }
+  return finalPassword;
+}
 
 // Write password to the #password input
 function writePassword() {
